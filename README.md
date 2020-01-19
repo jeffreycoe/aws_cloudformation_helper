@@ -22,7 +22,45 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```json
+{
+  "RequestType": "Create",
+  "ResponseURL": "http://pre-signed-S3-url-for-response",
+  "StackId": "arn:aws:cloudformation:us-east-1:123456789012:stack/MyStack/guid",
+  "RequestId": "unique id for this create request",
+  "ResourceType": "Custom::TestResource",
+  "LogicalResourceId": "MyTestResource",
+  "ResourceProperties": {
+    "StackName": "MyStack",
+    "List": [
+      "1",
+      "2",
+      "3"
+    ]
+  }
+}
+```
+
+```ruby
+require 'aws-cloudformation-helper'
+
+def create
+  # Add code to handle CloudFormation Create event
+end
+
+def delete
+  # Add code to handle CloudFormation Delete event
+end
+
+def update
+  # Add code to handle CloudFormation Update event
+end
+
+def lambda_handler(event:, context:)
+  # Initializes CloudFormation Helper library
+  @cfn_helper = AWS::CloudFormation::Helper.new(self, event, context)
+end
+```
 
 ## Development
 
