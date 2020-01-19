@@ -28,7 +28,7 @@ module AWS
           else
             err_msg = "Invalid request type specified. Request Type: #{@request_type}"
             logger.error(err_msg)
-            @cfn_response.failure
+            @cfn_response.failure(err_msg)
             raise err_msg
           end
         end
@@ -39,7 +39,7 @@ module AWS
           create_method.call
           @cfn_response.success
         rescue => e
-          @cfn_response.failure
+          @cfn_response.failure(e)
           raise e
         end
 
@@ -49,7 +49,7 @@ module AWS
           delete_method.call
           @cfn_response.success
         rescue => e
-          @cfn_response.failure
+          @cfn_response.failure(e)
           raise e
         end
 
@@ -59,7 +59,7 @@ module AWS
           update_method.call
           @cfn_response.success
         rescue => e
-          @cfn_response.failure
+          @cfn_response.failure(e)
           raise e
         end
         
@@ -80,7 +80,7 @@ module AWS
         def valid_json?(json)
           ::JSON.parse(json)
           return true
-        rescue ::JSON::ParseError => e
+        rescue ::JSON::ParserError => e
           return false
         end
       end
