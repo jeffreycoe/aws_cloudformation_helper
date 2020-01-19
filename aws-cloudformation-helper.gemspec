@@ -5,7 +5,7 @@ require "aws/cloudformation/helper/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "aws-cloudformation-helper"
-  spec.version       = Aws::Cloudformation::Helper::VERSION
+  spec.version       = AWS::CloudFormation::Helper::GEM_VERSION
   spec.authors       = ["Jeffrey Coe"]
   spec.email         = ["jeffrey.coe@cerner.com"]
 
