@@ -44,7 +44,7 @@ Or install it yourself as:
 ```
 
 ```ruby
-require 'aws/cloudformation/helper'
+require 'aws_cloudformation_helper'
 
 def create
   # Add code to handle CloudFormation Create event
