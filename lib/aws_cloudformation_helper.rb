@@ -8,7 +8,7 @@ require 'aws_cloudformation_helper/version'
 module AWS
   module CloudFormation
     # Main module
-    module Helper
+    class Helper
       class << self
         attr_accessor :logger
         attr_accessor :log_level
