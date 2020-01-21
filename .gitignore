@@ -11,6 +11,7 @@
 /test/version_tmp/
 /tmp/
 .DS_Store
+Gemfile.lock
 
 # Used by dotenv library to load environment variables.
 # .env
