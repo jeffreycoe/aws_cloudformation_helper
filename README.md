@@ -9,7 +9,7 @@ TODO: Delete this and the text above, and describe your gem
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'aws-cloudformation-helper'
+gem 'aws_cloudformation_helper'
 ```
 
 And then execute:
@@ -18,7 +18,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install aws-cloudformation-helper
+    $ gem install aws_cloudformation_helper
 
 ## Usage
 
@@ -42,7 +42,7 @@ Or install it yourself as:
 ```
 
 ```ruby
-require 'aws-cloudformation-helper'
+require 'aws/cloudformation/helper'
 
 def create
   # Add code to handle CloudFormation Create event
@@ -59,6 +59,8 @@ end
 def lambda_handler(event:, context:)
   # Initializes CloudFormation Helper library
   @cfn_helper = AWS::CloudFormation::Helper.new(self, event, context)
+  # @cfn_helper.log_level = :debug
+  # @cfn_helper.logger.debug('Debug message')
 end
 ```
 
@@ -70,7 +72,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/aws-cloudformation-helper.
+Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/aws_cloudformation_helper.
 
 ## License
 
