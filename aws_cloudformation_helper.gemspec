@@ -17,12 +17,12 @@ Gem::Specification.new do |spec|
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the allowed_push_host
   # to allow pushing to a single host or delete this section to allow pushing to any host.
+  raise 'RubyGems 2.0 or newer is required to protect against public gem pushes.' unless spec.respond_to?(:metadata)
+
   if spec.respond_to?(:metadata)
     spec.metadata['homepage_uri'] = spec.homepage
     spec.metadata['source_code_uri'] = 'https://github.com/jeffreycoe/aws_cloudformation_helper'
     spec.metadata['changelog_uri'] = 'https://github.com/jeffreycoe/aws_cloudformation_helper/CHANGELOG.md'
-  else
-    raise 'RubyGems 2.0 or newer is required to protect against public gem pushes.'
   end
 
   # Specify which files should be added to the gem when it is released.
@@ -36,6 +36,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'rubocop', '~> 0.79'
   spec.add_development_dependency 'rspec', '~> 3.2'
+  spec.add_development_dependency 'rubocop', '~> 0.79'
 end
