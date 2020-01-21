@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'net/http'
 require 'json'
 require 'uri'
@@ -5,6 +7,7 @@ require 'uri'
 module AWS
   module CloudFormation
     class Helper
+      # Handles sending a response to CloudFormation
       class Response
         # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/crpg-ref-responses.html
         SUCCESS_STATUS = 'SUCCESS'
@@ -20,22 +23,15 @@ module AWS
           uri = ::URI.parse(response_url)
           http = Net::HTTP.new(uri.host, uri.port)
           http.use_ssl = (uri.scheme == 'https')
+          request = http_request(method, uri, body)
 
-          case method
-          when 'PUT'
-            request = Net::HTTP::Put.new(uri)
-            request.body = body.to_json
-            request['Content-Type'] = 'application/json'
-          else
-            logger.error("Invalid HTTP method specified. Method: #{method}")
-          end
-
+          logger.debug("Sending #{method} request to URL #{response_url}...")
           response = http.request(request)
 
+          logger.debug("HTTP Response: #{response.inspect}")
           response.code.to_i
-        rescue => e
+        rescue StandardError => e
           err_msg = "Failed to send response to CloudFormation pre-signed S3 URL. Error Details: #{e}"
-
           logger.error(err_msg)
           raise e
         end
@@ -48,6 +44,19 @@ module AWS
 
         private
 
+        def http_request(method, uri, body)
+          case method.upcase
+          when 'PUT'
+            request = Net::HTTP::Put.new(uri)
+            request.body = body.to_json
+            request['Content-Type'] = 'application/json'
+          else
+            logger.error("Invalid HTTP method specified. Method: #{method}")
+          end
+
+          request
+        end
+
         def provider_response(status, reason)
           {
             Status: status,
@@ -57,7 +66,7 @@ module AWS
             RequestId: event.request_id,
             LogicalResourceId: event.logical_resource_id,
             Data: {
-                Result: 'OK'
+              Result: 'OK'
             }
           }
         end

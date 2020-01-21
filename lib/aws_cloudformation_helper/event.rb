@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 module AWS
   module CloudFormation
     class Helper
+      # Creates an Event object based on the event data from CloudFormation
       class Event
         attr_reader :logical_resource_id
         attr_reader :resource_properties
@@ -32,13 +35,13 @@ module AWS
             raise err_msg
           end
         end
-        
+
         def execute_create(create_method)
           logger.debug('Executing method for create event')
 
           create_method.call
           @cfn_response.success
-        rescue => e
+        rescue StandardError => e
           @cfn_response.failure(e)
           raise e
         end
@@ -48,7 +51,7 @@ module AWS
 
           delete_method.call
           @cfn_response.success
-        rescue => e
+        rescue StandardError => e
           @cfn_response.failure(e)
           raise e
         end
@@ -58,11 +61,11 @@ module AWS
 
           update_method.call
           @cfn_response.success
-        rescue => e
+        rescue StandardError => e
           @cfn_response.failure(e)
           raise e
         end
-        
+
         private
 
         def parse_event_data(event)
@@ -76,12 +79,12 @@ module AWS
           @request_type = event['RequestType']
           @stack_id = event['StackId']
         end
-        
+
         def valid_json?(json)
           ::JSON.parse(json)
-          return true
-        rescue ::JSON::ParserError => e
-          return false
+          true
+        rescue ::JSON::ParserError
+          false
         end
       end
     end
