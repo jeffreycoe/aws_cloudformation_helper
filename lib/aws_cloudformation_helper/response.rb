@@ -10,11 +10,12 @@ module AWS
       # Handles sending a response to CloudFormation
       class Response
         # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/crpg-ref-responses.html
-        SUCCESS_STATUS = 'SUCCESS'
         FAILURE_STATUS = 'FAILURE'
+        HTTP_MAX_RETRIES = 3
+        SUCCESS_STATUS = 'SUCCESS'
 
         def failure(reason = '')
-          status_code = send_response('PUT', event.response_url, provider_response(FAILURE_STATUS, reason))
+          status_code = send_response('PUT', Event.instance.response_url, provider_response(FAILURE_STATUS, reason))
           err_msg = "Failed to send failure message to CloudFormation pre-signed S3 URL. RC: #{status_code}"
           raise err_msg if status_code > 400
         end
@@ -24,20 +25,25 @@ module AWS
           http = Net::HTTP.new(uri.host, uri.port)
           http.use_ssl = (uri.scheme == 'https')
           request = http_request(method, uri, body)
+          retries ||= 1
 
-          logger.debug("Sending #{method} request to URL #{response_url}...")
+          Helper.logger.debug("Sending #{method} request to URL #{response_url}...")
           response = http.request(request)
 
-          logger.debug("HTTP Response: #{response.inspect}")
+          Helper.logger.debug("HTTP Response: #{response.inspect}")
           response.code.to_i
         rescue StandardError => e
-          err_msg = "Failed to send response to CloudFormation pre-signed S3 URL. Error Details: #{e}"
-          logger.error(err_msg)
+          err_msg = "Failed to send response to CloudFormation pre-signed S3 URL. "\
+          "(Attempt #{retries} of #{HTTP_MAX_RETRIES}) Error Details: #{e}"
+          Helper.logger.error(err_msg)
+          retry if (retries += 1) <= HTTP_MAX_RETRIES
+          err_msg = "Reached max retry attempts and failed to send message to CloudFormation pre-signed S3 URL."
+          Helper.logger.error(err_msg)
           raise e
         end
 
         def success(reason = '')
-          status_code = send_response('PUT', event.response_url, provider_response(SUCCESS_STATUS, reason))
+          status_code = send_response('PUT', Event.instance.response_url, provider_response(SUCCESS_STATUS, reason))
           err_msg = "Failed to send success message to CloudFormation pre-signed S3 URL. RC: #{status_code}"
           raise err_msg if status_code > 400
         end
@@ -51,7 +57,7 @@ module AWS
             request.body = body.to_json
             request['Content-Type'] = 'application/json'
           else
-            logger.error("Invalid HTTP method specified. Method: #{method}")
+            Helper.logger.error("Invalid HTTP method specified. Method: #{method}")
           end
 
           request
@@ -61,10 +67,10 @@ module AWS
           {
             Status: status,
             Reason: reason.to_s,
-            PhysicalResourceId: event.request_id,
-            StackId: event.stack_id,
-            RequestId: event.request_id,
-            LogicalResourceId: event.logical_resource_id,
+            PhysicalResourceId: Event.instance.request_id,
+            StackId: Event.instance.stack_id,
+            RequestId: Event.instance.request_id,
+            LogicalResourceId: Event.instance.logical_resource_id,
             Data: {
               Result: 'OK'
             }

@@ -6,6 +6,13 @@ module AWS
       # Main class to handle logging
       class Logger
         # https://docs.aws.amazon.com/lambda/latest/dg/ruby-logging.html
+        DEFAULT_LOG_LEVEL = :info
+
+        attr_accessor :log_level
+
+        def initialize
+          @log_level ||= DEFAULT_LOG_LEVEL if @log_level.nil?
+        end
 
         def error(msg)
           msg = format_log_entry('ERROR', msg)
@@ -18,14 +25,14 @@ module AWS
         end
 
         def warn(msg)
-          return if log_level == :info
+          return if @log_level == :info
 
           msg = format_log_entry('WARN', msg)
           puts msg
         end
 
         def debug(msg)
-          return if log_level != :debug
+          return if @log_level != :debug
 
           msg = format_log_entry('DEBUG', msg)
           puts msg
@@ -33,8 +40,8 @@ module AWS
 
         private
 
-        def format_log_entry(msg)
-          msg = "[#{::Time.now}] #{log_level}: #{msg}"
+        def format_log_entry(severity, msg)
+          msg = "[#{::Time.now}] #{severity}: #{msg}"
           msg
         end
       end
