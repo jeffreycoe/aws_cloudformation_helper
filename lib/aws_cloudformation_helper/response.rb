@@ -33,11 +33,11 @@ module AWS
           Helper.logger.debug("HTTP Response: #{response.inspect}")
           response.code.to_i
         rescue StandardError => e
-          err_msg = "Failed to send response to CloudFormation pre-signed S3 URL. "\
+          err_msg = 'Failed to send response to CloudFormation pre-signed S3 URL. '\
           "(Attempt #{retries} of #{HTTP_MAX_RETRIES}) Error Details: #{e}"
           Helper.logger.error(err_msg)
           retry if (retries += 1) <= HTTP_MAX_RETRIES
-          err_msg = "Reached max retry attempts and failed to send message to CloudFormation pre-signed S3 URL."
+          err_msg = 'Reached max retry attempts and failed to send message to CloudFormation pre-signed S3 URL.'
           Helper.logger.error(err_msg)
           raise e
         end

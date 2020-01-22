@@ -24,8 +24,6 @@ module AWS
           @create_method = create_method
           @delete_method = delete_method
           @update_method = update_method
-
-          Helper.logger.debug("Event initialization: #{self.inspect}")
         end
 
         def execute

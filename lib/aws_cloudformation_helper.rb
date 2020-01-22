@@ -18,7 +18,7 @@ module AWS
 
         # Initialize event object
         @event = Event.new(event, lambda_class.method(:create),
-                          lambda_class.method(:delete), lambda_class.method(:update))
+                           lambda_class.method(:delete), lambda_class.method(:update))
         Event.instance = @event
       end
 
