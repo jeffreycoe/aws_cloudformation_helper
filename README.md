@@ -24,25 +24,7 @@ Or install it yourself as:
 
 ## Usage
 
-```json
-{
-  "RequestType": "Create",
-  "ResponseURL": "http://pre-signed-S3-url-for-response",
-  "StackId": "arn:aws:cloudformation:us-east-1:123456789012:stack/MyStack/guid",
-  "RequestId": "unique id for this create request",
-  "ResourceType": "Custom::TestResource",
-  "LogicalResourceId": "MyTestResource",
-  "ResourceProperties": {
-    "StackName": "MyStack",
-    "List": [
-      "1",
-      "2",
-      "3"
-    ]
-  }
-}
-```
-
+Add this code block to the main AWS Lambda function for the custom resource to get started:
 ```ruby
 require 'aws_cloudformation_helper'
 
@@ -61,9 +43,32 @@ end
 def lambda_handler(event:, context:)
   # Initializes CloudFormation Helper library
   @cfn_helper = AWS::CloudFormation::Helper.new(self, event, context)
-  # @cfn_helper.log_level = :debug
-  # @cfn_helper.logger.debug('Debug message')
+
+  # Add additional initialization code here
+
+  # Executes the event method
+  @cfn_helper.event.execute
 end
+```
+
+Sample CloudFormation JSON event data:
+```json
+{
+  "RequestType": "Create",
+  "ResponseURL": "http://pre-signed-S3-url-for-response",
+  "StackId": "arn:aws:cloudformation:us-east-1:123456789012:stack/MyStack/guid",
+  "RequestId": "unique id for this create request",
+  "ResourceType": "Custom::TestResource",
+  "LogicalResourceId": "MyTestResource",
+  "ResourceProperties": {
+    "StackName": "MyStack",
+    "List": [
+      "1",
+      "2",
+      "3"
+    ]
+  }
+}
 ```
 
 ## Development
