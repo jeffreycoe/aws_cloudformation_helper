@@ -10,7 +10,7 @@ module AWS
       # Handles sending a response to CloudFormation
       class Response
         # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/crpg-ref-responses.html
-        FAILURE_STATUS = 'FAILURE'
+        FAILURE_STATUS = 'FAILED'
         HTTP_MAX_RETRIES = 3
         SUCCESS_STATUS = 'SUCCESS'
 
