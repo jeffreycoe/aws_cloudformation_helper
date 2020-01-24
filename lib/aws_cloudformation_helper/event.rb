@@ -10,6 +10,7 @@ module AWS
         end
 
         attr_reader :logical_resource_id
+        attr_reader :physical_resource_id
         attr_reader :resource_properties
         attr_reader :resource_type
         attr_reader :response_url
@@ -80,6 +81,7 @@ module AWS
           raise 'The event object from Lambda is nil.' if event.nil?
 
           @logical_resource_id = event['LogicalResourceId'].to_s
+          @physical_resource_id = event['PhysicalResourceId'] if event.keys.include?('PhysicalResourceId')
           @resource_properties = event['ResourceProperties']
           @resource_type = event['ResourceType'].to_s
           @response_url = event['ResponseURL'].to_s
