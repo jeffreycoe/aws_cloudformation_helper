@@ -67,11 +67,22 @@ module AWS
           request
         end
 
+        def physical_resource_id
+          id = generate_physical_id
+          id = Event.instance.physical_resource_id unless Event.instance.physical_resource_id.to_s.empty?
+          id
+        end
+
+        def generate_physical_id
+          random_string = 8.times.map { [*'0'..'9', *'a'..'z'].sample }.join
+          "#{Event.instance.stack_id.split('/')[1]}_#{Event.instance.LogicalResourceId}_#{random_string}"
+        end
+
         def provider_response(status, reason)
           {
             Status: status,
             Reason: reason.to_s,
-            PhysicalResourceId: Event.instance.request_id,
+            PhysicalResourceId: physical_resource_id,
             StackId: Event.instance.stack_id,
             RequestId: Event.instance.request_id,
             LogicalResourceId: Event.instance.logical_resource_id,
