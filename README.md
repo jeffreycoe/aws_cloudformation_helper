@@ -1,10 +1,8 @@
-# AWS::CloudFormation::Helper
+# aws_cloudformation_helper
 [![Build Status](https://travis-ci.org/jeffreycoe/aws_cloudformation_helper.svg?branch=master)](https://travis-ci.org/jeffreycoe/aws_cloudformation_helper)
 [![GitHub](https://img.shields.io/github/license/jeffreycoe/aws_cloudformation_helper)](https://github.com/jeffreycoe/aws_cloudformation_helper/blob/master/LICENSE.txt)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/aws/cloudformation/helper`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This Ruby gem is to assist with the development of custom resources for CloudFormation using the Ruby runtime.
 
 ## Installation
 
@@ -24,7 +22,9 @@ Or install it yourself as:
 
 ## Usage
 
-Add this code block to the main AWS Lambda function for the custom resource to get started:
+Install this gem into your Lambda environment using bundle install or by bundling this gem in a Lambda layer.
+
+Once the Ruby gem is installed, use the code template below for the main Lambda function to begin:
 ```ruby
 require 'aws_cloudformation_helper'
 
@@ -51,7 +51,7 @@ def lambda_handler(event:, context:)
 end
 ```
 
-Sample CloudFormation JSON event data:
+Sample CloudFormation JSON create event data:
 ```json
 {
   "RequestType": "Create",
