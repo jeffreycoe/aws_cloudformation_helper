@@ -6,7 +6,7 @@ require_relative '../mock_lambda_handler.rb'
 
 RSpec.describe 'main helper class' do
   let(:mock_handler) { MockLambdaHandler.new }
-  let(:mock_helper) { AWS::CloudFormation::Helper.new(mock_handler, mock_handler.event, mock_handler.context) } 
+  let(:mock_helper) { AWS::CloudFormation::Helper.new(mock_handler, mock_handler.event, mock_handler.context) }
 
   it 'responds to logger class method' do
     expect(AWS::CloudFormation::Helper).to respond_to(:logger).with(0).argument

@@ -5,8 +5,8 @@ require 'securerandom'
 class MockLambdaHandler
   class LambdaContext
     def initialize
-      @clock_diff = 1579980692980
-      @deadline_ms = 1579981801350
+      @clock_diff = 1_579_980_692_980
+      @deadline_ms = 1_579_981_801_350
       @aws_request_id = ::SecureRandom.uuid
       @invoked_function_arn = 'arn:aws:lambda:us-east-1:012345678912:function:mock_function'
       @log_group_name = '/aws/lambda/mock_function'
@@ -21,7 +21,9 @@ class MockLambdaHandler
   attr_accessor :event
 
   def create; end
+
   def delete; end
+
   def update; end
 
   def initialize
