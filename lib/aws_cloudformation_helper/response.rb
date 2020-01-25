@@ -75,7 +75,7 @@ module AWS
 
         def generate_physical_id
           random_string = 8.times.map { [*'0'..'9', *'a'..'z'].sample }.join
-          "#{Event.instance.stack_id.split('/')[1]}_#{Event.instance.LogicalResourceId}_#{random_string}"
+          "#{Event.instance.stack_id.split('/')[1]}_#{Event.instance.LogicalResourceId}_#{random_string.downcase}"
         end
 
         def provider_response(status, reason)
