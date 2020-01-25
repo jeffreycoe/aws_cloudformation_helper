@@ -6,3 +6,10 @@ Metrics/MethodLength:
 
 Metrics/AbcSize:
   Max: 25
+
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'test/**/*.rb'
+    - 'spec/**/*.rb'
