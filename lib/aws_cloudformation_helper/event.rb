@@ -46,7 +46,7 @@ module AWS
         end
 
         def execute_create
-          Helper.logger.debug('Executing method for create event')
+          Helper.logger.info('Executing method for create event')
 
           @create_method.call
           @cfn_response.success
@@ -56,7 +56,7 @@ module AWS
         end
 
         def execute_delete
-          Helper.logger.debug('Executing method for delete event')
+          Helper.logger.info('Executing method for delete event')
 
           @delete_method.call
           @cfn_response.success
@@ -66,7 +66,7 @@ module AWS
         end
 
         def execute_update
-          Helper.logger.debug('Executing method for update event')
+          Helper.logger.info('Executing method for update event')
 
           @update_method.call
           @cfn_response.success

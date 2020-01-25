@@ -19,6 +19,7 @@ module AWS
         end
 
         def failure(reason = '')
+          Helper.logger.info("Sending #{FAILURE_STATUS} response to CloudFormation")
           status_code = send_response('PUT', Event.instance.response_url, provider_response(FAILURE_STATUS, reason))
           err_msg = "Failed to send failure message to CloudFormation pre-signed S3 URL. RC: #{status_code}"
           raise err_msg if status_code > 400
@@ -47,6 +48,7 @@ module AWS
         end
 
         def success(reason = '')
+          Helper.logger.info("Sending #{SUCCESS_STATUS} response to CloudFormation")
           status_code = send_response('PUT', Event.instance.response_url, provider_response(SUCCESS_STATUS, reason))
           err_msg = "Failed to send success message to CloudFormation pre-signed S3 URL. RC: #{status_code}"
           raise err_msg if status_code > 400
