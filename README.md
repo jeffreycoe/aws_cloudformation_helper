@@ -71,7 +71,7 @@ Sample CloudFormation JSON create event data:
 }
 ```
 
-# Logging
+### Logging
 By default, the logging level is set to :info. To enable another logging level, add a line to the initialization section of the lambda_handler function.  The logger is the standard Ruby logger provided by the Ruby stdlib. 
 
 The stdout and stderr variables can be reassigned to store log entries in another stream or file. By default, the default logger logs to STDOUT and the error logger (only for logger.error messages) logs to STDERR.
