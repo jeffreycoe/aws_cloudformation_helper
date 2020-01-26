@@ -25,8 +25,8 @@ RSpec.describe 'helper logger class' do
 
   it 'responds to warn' do
     expect(logger).to respond_to(:warn).with(1).argument
-  end  
-  
+  end
+
   it 'logs error messages to stderr' do
     logger.error('err_msg')
     error_log.rewind
