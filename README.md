@@ -78,7 +78,7 @@ end
 
 ### Event and Context
 
-The event data and context object are available from the @cfn_helper variable in the main class.  Access this data from `@cfn_helper.event` and `@cfn_helper.context`.
+The event data and context object are available from the `@cfn_helper` variable in the main class.  Access this data by calling `@cfn_helper.event` and `@cfn_helper.context`.
 
 ## Development
 
