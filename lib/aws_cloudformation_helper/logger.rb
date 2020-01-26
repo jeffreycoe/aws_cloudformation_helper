@@ -11,6 +11,8 @@ module AWS
         DEFAULT_LOG_LEVEL = :info
 
         attr_accessor :log_level
+        attr_accessor :stdout
+        attr_accessor :stderr
 
         def initialize(log_level = nil, stdout = STDOUT, stderr = STDERR)
           @log_level = DEFAULT_LOG_LEVEL
