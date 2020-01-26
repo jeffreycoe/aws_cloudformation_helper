@@ -71,6 +71,29 @@ Sample CloudFormation JSON create event data:
 }
 ```
 
+# Logging
+By default, the logging level is set to :info. To enable another logging level, add a line to the initialization section of the lambda_handler function.  The logger is the standard Ruby logger provided by the Ruby stdlib. 
+
+The stdout and stderr variables can be reassigned to store log entries in another stream or file. By default, the default logger logs to STDOUT and the error logger (only for logger.error messages) logs to STDERR.
+
+See more info here: https://ruby-doc.org/stdlib-2.7.0/libdoc/logger/rdoc/Logger.html
+
+Below is a sample code block on enabling debug logging and redirecting stdout/stderr:
+```ruby
+def lambda_handler(event:, context:)
+  # Initializes CloudFormation Helper library
+  @cfn_helper = AWS::CloudFormation::Helper.new(self, event, context)
+
+  # Add additional initialization code here
+  @cfn_helper.logger.log_level = :debug
+  @cfn_helper.logger.stdout = $stdout
+  @cfn_helper.logger.stderr = $stderr
+
+  # Executes the event method
+  @cfn_helper.event.execute
+end
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
