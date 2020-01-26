@@ -18,10 +18,10 @@ RSpec.describe 'helper event class' do
   end
 
   it 'has resource_properties' do
-    expect(mock_event.resource_properties).to include({
+    expect(mock_event.resource_properties).to include(
       'ClusterName' => 'test-cluster',
       'ConfigMap' => 'some_data'
-    })
+    )
   end
 
   it 'has resource_type' do
