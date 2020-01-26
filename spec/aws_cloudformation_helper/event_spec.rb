@@ -10,7 +10,7 @@ RSpec.describe 'helper event class' do
   let(:mock_event) { mock_helper.event }
 
   it 'has logical_resource_id' do
-    expect(mock_event.logical_resource_id).not_to be ''
+    expect(mock_event.logical_resource_id).to be 'MyTestResource'
   end
 
   it 'has physical_resource_id' do
@@ -18,27 +18,30 @@ RSpec.describe 'helper event class' do
   end
 
   it 'has resource_properties' do
-    expect(mock_event.resource_properties).not_to be ''
+    expect(mock_event.resource_properties).to include({
+      'ClusterName' => 'test-cluster',
+      'ConfigMap' => 'some_data'
+    })
   end
 
   it 'has resource_type' do
-    expect(mock_event.resource_type).not_to be ''
+    expect(mock_event.resource_type).to be 'Custom::TestResource'
   end
 
   it 'has response_url' do
-    expect(mock_event.response_url).not_to be ''
+    expect(mock_event.response_url).to be 'https://test.endpoint.mock'
   end
 
   it 'has request_id' do
-    expect(mock_event.request_id).not_to be ''
+    expect(mock_event.request_id).to be 'unique id for this create request'
   end
 
   it 'has request_type' do
-    expect(mock_event.request_type).not_to be ''
+    expect(mock_event.request_type).to be 'Create'
   end
 
   it 'has stack_id' do
-    expect(mock_event.stack_id).not_to be ''
+    expect(mock_event.stack_id).to be 'arn:aws:cloudformation:us-east-2:123456789012:stack/MyStack/guid'
   end
 
   it 'responds to execute method' do
@@ -55,10 +58,6 @@ RSpec.describe 'helper event class' do
 
   it 'responds to execute_update method' do
     expect(mock_helper.event).to respond_to(:execute_update).with(0).argument
-  end
-
-  it 'responds to logger instance method when instantiated' do
-    expect(mock_helper).to respond_to(:logger).with(0).argument
   end
 
   it 'is event object' do
