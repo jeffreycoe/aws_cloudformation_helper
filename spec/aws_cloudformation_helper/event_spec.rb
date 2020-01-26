@@ -67,7 +67,7 @@ RSpec.describe 'helper event class' do
   end
 
   it 'raises exception if event data is nil' do
-    expect { AWS::CloudFormation::Helper::Event.new(nil, def method; end, def method; end, def method; end) }
+    expect { AWS::CloudFormation::Helper::Event.new(nil, def create; end, def delete; end, def update; end) }
       .to raise_error('The event object from Lambda is nil.')
   end
 end
