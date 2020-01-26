@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'logger'
+
 module AWS
   module CloudFormation
     class Helper
@@ -10,39 +12,41 @@ module AWS
 
         attr_accessor :log_level
 
-        def initialize
-          @log_level ||= DEFAULT_LOG_LEVEL if @log_level.nil?
+        def initialize(log_level = nil, stdout = STDOUT, stderr = STDERR)
+          @log_level = DEFAULT_LOG_LEVEL
+          @log_level = log_level unless log_level.nil?
+          @stdout = stdout
+          @stderr = stderr
         end
 
         def error(msg)
-          msg = format_log_entry('ERROR', msg)
-          warn msg
+          error_logger.error(msg)
         end
 
         def info(msg)
-          msg = format_log_entry('INFO', msg)
-          puts msg
+          logger.info(msg)
         end
 
         def warn(msg)
-          return if @log_level == :info
-
-          msg = format_log_entry('WARN', msg)
-          puts msg
+          logger.warn(msg)
         end
 
         def debug(msg)
-          return if @log_level != :debug
-
-          msg = format_log_entry('DEBUG', msg)
-          puts msg
+          logger.debug(msg)
         end
 
         private
 
-        def format_log_entry(severity, msg)
-          msg = "[#{::Time.now}] #{severity}: #{msg}"
-          msg
+        def logger
+          @logger ||= ::Logger.new(@stdout)
+          @logger.level = @log_level
+          @logger
+        end
+
+        def error_logger
+          @logger ||= ::Logger.new(@stderr)
+          @logger.level = @log_level
+          @logger
         end
       end
     end
