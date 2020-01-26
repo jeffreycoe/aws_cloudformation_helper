@@ -46,30 +46,12 @@ def lambda_handler(event:, context:)
 
   # Add additional initialization code here
 
-  # Executes the event method
+  # Executes the event
   @cfn_helper.event.execute
 end
 ```
 
-Sample CloudFormation JSON create event data:
-```json
-{
-  "RequestType": "Create",
-  "ResponseURL": "http://pre-signed-S3-url-for-response",
-  "StackId": "arn:aws:cloudformation:us-east-1:123456789012:stack/MyStack/guid",
-  "RequestId": "unique id for this create request",
-  "ResourceType": "Custom::TestResource",
-  "LogicalResourceId": "MyTestResource",
-  "ResourceProperties": {
-    "StackName": "MyStack",
-    "List": [
-      "1",
-      "2",
-      "3"
-    ]
-  }
-}
-```
+The `create`, `delete`, and `update` methods will send a success response to CloudFormation when the method finishes executing, and a failure response will be sent when exceptions are raised.
 
 ### Logging
 By default, the logging level is set to :info. To enable another logging level, add a line to the initialization section of the lambda_handler function.  The logger is the standard Ruby logger provided by the Ruby stdlib. 
@@ -89,10 +71,14 @@ def lambda_handler(event:, context:)
   @cfn_helper.logger.stdout = $stdout
   @cfn_helper.logger.stderr = $stderr
 
-  # Executes the event method
+  # Executes the event
   @cfn_helper.event.execute
 end
 ```
+
+### Event and Context
+
+The event data and context object are available from the @cfn_helper variable in the main class.  Access this data from `@cfn_helper.event` and `@cfn_helper.context`.
 
 ## Development
 
