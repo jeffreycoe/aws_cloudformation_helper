@@ -4,7 +4,7 @@ require 'spec_helper'
 
 require_relative '../mock_lambda_handler.rb'
 
-RSpec.describe 'helper event class' do
+RSpec.describe AWS::CloudFormation::Helper::Event do
   let(:mock_handler) { MockLambdaHandler.new }
   let(:mock_helper) { AWS::CloudFormation::Helper.new(mock_handler, mock_handler.event, mock_handler.context) }
   let(:mock_event) { mock_helper.event }

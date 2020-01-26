@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe 'helper logger class' do
+RSpec.describe AWS::CloudFormation::Helper::Logger do
   let(:log) { ::StringIO.new }
   let(:error_log) { ::StringIO.new }
   let(:logger) { AWS::CloudFormation::Helper::Logger.new(nil, log, error_log) }
