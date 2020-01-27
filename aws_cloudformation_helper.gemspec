@@ -8,10 +8,9 @@ Gem::Specification.new do |spec|
   spec.name          = 'aws_cloudformation_helper'
   spec.version       = AWS::CloudFormation::Helper::Version::GEM_VERSION
   spec.authors       = ['Jeffrey Coe']
-  spec.email         = ['jeffrey.coe@cerner.com']
 
-  spec.summary       = 'Provides helper methods for AWS CloudFormation'
-  spec.description   = 'Provides helper methods for AWS CloudFormation'
+  spec.summary       = 'Assists with the development of custom resources for AWS CloudFormation using the Ruby runtime'
+  spec.description   = spec.summary
   spec.homepage      = 'https://github.com/jeffreycoe/aws_cloudformation_helper'
   spec.license       = 'MIT'
 
