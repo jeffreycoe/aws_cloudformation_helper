@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   if spec.respond_to?(:metadata)
     spec.metadata['homepage_uri'] = spec.homepage
     spec.metadata['source_code_uri'] = 'https://github.com/jeffreycoe/aws_cloudformation_helper'
-    spec.metadata['changelog_uri'] = 'https://github.com/jeffreycoe/aws_cloudformation_helper/CHANGELOG.md'
+    spec.metadata['changelog_uri'] = 'https://github.com/jeffreycoe/aws_cloudformation_helper/blob/master/CHANGELOG.md'
   end
 
   # Specify which files should be added to the gem when it is released.
