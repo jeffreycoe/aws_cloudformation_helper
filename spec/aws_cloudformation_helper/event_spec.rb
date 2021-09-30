@@ -55,7 +55,7 @@ RSpec.describe AWS::CloudFormation::Helper::Event do
   end
 
   it 'has response_data' do
-    expect(mock_event.response_data).to be {}
+    expect(mock_event.response_data).to eq({})
   end
 
   it 'responds to execute method' do
