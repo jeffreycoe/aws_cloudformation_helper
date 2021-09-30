@@ -77,6 +77,13 @@ module AWS
           raise e
         end
 
+        def update_physical_resource_id(physical_resource_id)
+          return false unless @physical_resource_id.to_s.empty?
+
+          @physical_resource_id = physical_resource_id
+          true
+        end
+
         private
 
         def parse_event_data(event)

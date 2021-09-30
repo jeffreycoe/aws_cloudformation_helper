@@ -82,6 +82,8 @@ The event data and context object are available from the `@cfn_helper` variable 
 
 Additional response data can also be sent back to CloudFormation stack, ex: `@cfn_helper.event.response_data['Foo']='Bar'`
 
+Custom `physical_resource_id` can be sent back to CloudFormation stack by calling `@cfn_helper.event.update_physical_resource_id('custom-id') # returns boolean`. Please note, this only works when CloudFormation stack did not provide an id already.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

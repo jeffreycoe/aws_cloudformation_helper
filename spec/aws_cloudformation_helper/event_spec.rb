@@ -17,6 +17,16 @@ RSpec.describe AWS::CloudFormation::Helper::Event do
     expect(mock_event.physical_resource_id).to be nil
   end
 
+  it 'should be able to set physical_resource_id if it is not already set' do
+    custom_physical_resource_id = 'custom-id'
+    expect(mock_event.update_physical_resource_id(custom_physical_resource_id)).to be_truthy
+    expect(mock_event.physical_resource_id).to be custom_physical_resource_id
+
+    another_custom_physical_resource_id = 'another-id'
+    expect(mock_event.update_physical_resource_id(another_custom_physical_resource_id)).to be_falsey
+    expect(mock_event.physical_resource_id).to be custom_physical_resource_id
+  end
+
   it 'has resource_properties' do
     expect(mock_event.resource_properties).to include(
       'ClusterName' => 'test-cluster',
