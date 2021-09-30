@@ -80,6 +80,8 @@ end
 
 The event data and context object are available from the `@cfn_helper` variable in the main class.  Access this data by calling `@cfn_helper.event` and `@cfn_helper.context`.
 
+Additional response data can also be sent back to CloudFormation stack, ex: `@cfn_helper.event.response_data['Foo']='Bar'`
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

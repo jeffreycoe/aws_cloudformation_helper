@@ -44,6 +44,10 @@ RSpec.describe AWS::CloudFormation::Helper::Event do
     expect(mock_event.stack_id).to be 'arn:aws:cloudformation:us-east-2:123456789012:stack/MyStack/guid'
   end
 
+  it 'has response_data' do
+    expect(mock_event.response_data).to be {}
+  end
+
   it 'responds to execute method' do
     expect(mock_helper.event).to respond_to(:execute).with(0).argument
   end

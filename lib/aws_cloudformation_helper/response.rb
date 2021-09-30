@@ -90,7 +90,7 @@ module AWS
             LogicalResourceId: Event.instance.logical_resource_id,
             Data: {
               Result: 'OK'
-            }
+            }.merge(Event.instance.response_data)
           }
         end
       end
