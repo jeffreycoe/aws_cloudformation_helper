@@ -17,6 +17,7 @@ module AWS
         attr_reader :request_id
         attr_reader :request_type
         attr_reader :stack_id
+        attr_accessor :response_data
 
         def initialize(event, create_method, delete_method, update_method)
           parse_event_data(event)
@@ -25,6 +26,7 @@ module AWS
           @create_method = create_method
           @delete_method = delete_method
           @update_method = update_method
+          @response_data = {}
         end
 
         def execute
@@ -73,6 +75,13 @@ module AWS
         rescue StandardError => e
           @cfn_response.failure(e)
           raise e
+        end
+
+        def update_physical_resource_id(physical_resource_id)
+          return false unless @physical_resource_id.to_s.empty?
+
+          @physical_resource_id = physical_resource_id
+          true
         end
 
         private
